@@ -11,6 +11,6 @@
 #  updated_at :datetime
 #
 
-class Clone < ActiveRecord::Base
-  attr_accessible :name, :page, :url
+class Clone < ApplicationRecord
+  attr_accessor :name, :page, :url
 end

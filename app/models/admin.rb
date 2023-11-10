@@ -26,13 +26,13 @@
 
 require 'digest/sha1'
 
-class Admin < ActiveRecord::Base
+class Admin < ApplicationRecord
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable and :omniauthable
 	devise :database_authenticatable, :rememberable, :trackable, :registerable, :validatable
 
 	# Setup accessible (or protected) attributes for your model
-	attr_accessible :username, :name, :email, :approved, :password, :password_confirmation, :remember_me
+	# attr_accessor :username, :name, :email, :approved, :password, :password_confirmation, :remember_me
 
 	has_paper_trail on: [:update], only: [:current_sign_in_at, :current_sign_in_ip]
 

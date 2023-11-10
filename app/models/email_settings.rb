@@ -26,10 +26,10 @@
 #  reply_to             :string(255)
 #
 
-class EmailSettings < ActiveRecord::Base
+class EmailSettings < ApplicationRecord
   belongs_to :campaign
 
-  attr_accessible :campaign_id, :to, :cc, :bcc, :from, :display_from, :subject, :phishing_url,
+  attr_accessor :campaign_id, :to, :cc, :bcc, :from, :display_from, :subject, :phishing_url,
                   :smtp_server, :smtp_username, :smtp_password, :smtp_port, :smtp_server_out,
                   :openssl_verify_mode, :domain, :authentication, :enable_starttls_auto, :reply_to
 

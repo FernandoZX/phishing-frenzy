@@ -17,9 +17,9 @@
 #  site_url               :string(255)      default("https://phishingfrenzy.local")
 #
 
-class GlobalSettings < ActiveRecord::Base
+class GlobalSettings < ApplicationRecord
 
-  attr_accessible :site_url, :command_apache_restart, :command_apache_vhosts, :command_apache_status, :sites_enabled_path, :smtp_timeout, :asynchronous, :bing_api, :beef_url, :reports_refresh
+  attr_accessor :site_url, :command_apache_restart, :command_apache_vhosts, :command_apache_status, :sites_enabled_path, :smtp_timeout, :asynchronous, :bing_api, :beef_url, :reports_refresh
 
   validates :site_url, uri: true
   validates :command_apache_restart, :presence => true, :length => {:maximum => 255}

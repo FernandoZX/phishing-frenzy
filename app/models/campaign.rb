@@ -18,7 +18,7 @@
 
 require 'fileutils'
 
-class Campaign < ActiveRecord::Base
+class Campaign < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_admin }
 
@@ -40,7 +40,7 @@ class Campaign < ActiveRecord::Base
   accepts_nested_attributes_for :ssl, allow_destroy: true#, :reject_if => proc {|attributes| attributes['filename'].blank?}
 
   # allow mass asignment
-  attr_accessible :name, :description, :active, :emails, :scope, :template_id, :test_email, :ssl_attributes, :email_sent, :admin_id, :email_settings_attributes, :campaign_settings_attributes
+  attr_accessor :name, :description, :active, :emails, :scope, :template_id, :test_email, :ssl_attributes, :email_sent, :admin_id, :email_settings_attributes, :campaign_settings_attributes
 
   # named scopes
   scope :active, -> { where(active: true) }

@@ -1,4 +1,4 @@
-class PhishingFrenzyMailer < ActionMailer::Base
+class PhishingFrenzyMailer < ApplicationMailer
 
   PREVIEW = 0
   ACTIVE = 1

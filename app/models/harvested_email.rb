@@ -12,10 +12,10 @@
 #  original        :string(255)
 #
 
-class HarvestedEmail < ActiveRecord::Base
+class HarvestedEmail < ApplicationRecord
   belongs_to :email_search
 
-  attr_accessible :email, :original, :group, :url, :email_search_id
+  attr_accessor :email, :original, :group, :url, :email_search_id
 
   validates_uniqueness_of :email, scope: :email_search_id
   before_validation :normalize_email

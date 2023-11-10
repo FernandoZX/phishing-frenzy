@@ -11,7 +11,7 @@
 #  extra      :string(255)
 #
 
-class Visit < ActiveRecord::Base
+class Visit < ApplicationRecord
   belongs_to :victim
-  # attr_accessible :title, :body
+  # attr_accessor :title, :body
 end

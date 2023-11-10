@@ -12,6 +12,6 @@
 #  updated_at      :datetime
 #
 
-class Statistics < ActiveRecord::Base
+class Statistics < ApplicationRecord
 	belongs_to :campaign
 end

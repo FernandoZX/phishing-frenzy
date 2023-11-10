@@ -10,13 +10,13 @@
 #  updated_at  :datetime
 #
 
-class Ssl < ActiveRecord::Base
+class Ssl < ApplicationRecord
   belongs_to :campaign
 
   validates_uniqueness_of :function, scope: :campaign_id
   before_validation :validate_certificates
 
-  attr_accessible :filename, :function
+  attr_accessor :filename, :function
   mount_uploader :filename, FileUploader
 
   def self.functions

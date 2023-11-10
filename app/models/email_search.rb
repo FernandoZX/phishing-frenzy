@@ -10,8 +10,8 @@
 #  updated_at         :datetime
 #
 
-class EmailSearch < ActiveRecord::Base
+class EmailSearch < ApplicationRecord
   has_many :harvested_emails, dependent: :destroy
 
-  attr_accessible :domain, :crawls, :harvested_email_id
+  attr_accessor :domain, :crawls, :harvested_email_id
 end

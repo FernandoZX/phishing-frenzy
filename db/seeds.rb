@@ -21,3 +21,16 @@ unless admin.present?
 		approved: true
 	)
 end
+
+# create admin account with default password if it does not exist
+admin_second = Admin.find_by(username: "fernando_admin")
+unless admin_second.present?
+	Admin.create(
+		username: "fernando_admin",
+		name: "fernando_admin",
+		password: "Funt1me!",
+		password_confirmation: "Funt1me!",
+		email: "fernando_admin@phishingfrenzy.local",
+		approved: true
+	)
+end

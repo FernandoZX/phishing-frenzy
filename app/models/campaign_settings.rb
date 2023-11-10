@@ -24,10 +24,10 @@
 #  directory_index        :boolean          default(FALSE)
 #
 
-class CampaignSettings < ActiveRecord::Base
+class CampaignSettings < ApplicationRecord
   belongs_to :campaign
 
-  attr_accessible :track_uniq_visitors, :track_hits, :iptable_restrictions, :schedule_campaign,
+  attr_accessor :track_uniq_visitors, :track_hits, :iptable_restrictions, :schedule_campaign,
     :use_beef, :beef_url, :campaign_id, :fqdn, :smtp_delay, :ssl, :password_storage, :require_uid,
     :robots_block, :directory_index
 

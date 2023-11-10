@@ -14,7 +14,7 @@
 #  admin_id        :integer
 #
 
-class Template < ActiveRecord::Base
+class Template < ApplicationRecord
 	include PublicActivity::Model
 	tracked owner: ->(controller, model) { controller && controller.current_admin }
 	
@@ -22,7 +22,7 @@ class Template < ActiveRecord::Base
 	has_many :campaigns
 	has_many :attachments, as: :attachable, dependent: :destroy
 
-	attr_accessible :name, :description, :notes, :attachments_attributes, :directory_index, :admin_id
+	attr_accessor :name, :description, :notes, :attachments_attributes, :directory_index, :admin_id
 
 	validates :name, presence: true, length: { :maximum => 255 }
 	validates_with TemplateValidator

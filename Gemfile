@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 ruby '2.7.8'
 
-gem 'rails', '4.2.11.3'
+gem 'rails', '5.0.7.2'
+gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml'
 
 gem 'mysql2', '0.4.10'
-gem 'sass-rails', '~> 5.0', '>= 5.0.6'
-gem 'coffee-rails'
+gem 'sass-rails', '~> 5.0'
+gem 'coffee-rails', '~> 4.2'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem "libv8"
@@ -14,7 +15,6 @@ gem "therubyracer"
 # core rails helpers
 gem 'uglifier'
 gem 'jquery-rails'
-gem 'protected_attributes'
 
 # TO use devise for authentication
 gem 'devise'
@@ -24,7 +24,7 @@ gem 'paper_trail', '>= 3.0.0.rc2'
 
 # For background work (sending emails)
 gem 'sidekiq'
-gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'puma', '~> 3.0'
 
 # For email previewing
 gem 'letter_opener_web'
@@ -82,19 +82,25 @@ gem 'prawn-table', '~> 0.1.0'
 gem 'searchbing'
 gem 'open_uri_redirections'
 
+gem 'redis', '~> 3.0'
+
 # site cloning
 gem 'mechanize'
 
 # Gem for xlsx creation
 gem 'acts_as_xlsx'
-gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: '776037c0fc799bb09da8c9ea47980bd3bf296874'
-gem 'axlsx_rails'
+gem 'caxlsx'
+gem 'caxlsx_rails'
 
 # code syntax highlighter
 gem 'codemirror-rails'
 
 # our test suite
-gem "rspec-rails", :group => [:test, :development]
+group :development, :test do
+  gem "rspec-rails"
+  gem 'minitest'
+end
+
 group :test do
   gem "factory_bot_rails"
   gem "capybara"
@@ -105,15 +111,23 @@ group :test do
   gem 'simplecov'
 end
 
-group :production do
-  gem 'unicorn'
+# group :production do
+#   gem 'unicorn'
+# end
+gem 'test-unit'
+gem 'rails-controller-testing'
+
+group :development do
+  # optimize queries
+  gem "bullet"
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '~> 3.0.5'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 # ruby code style checker
 gem 'rubocop'
-
-# optimize queries
-gem "bullet", :group => "development"
 
 gem 'public_activity'
 
@@ -121,7 +135,7 @@ gem 'public_activity'
 gem 'file-tail'
 
 # decorators
-gem 'draper', '~> 1.3'
+# gem 'draper', '~> 1.3'
 
 # foreman helper
 gem 'foreman'
@@ -131,8 +145,5 @@ gem 'annotate', require: false
 
 # glone models with associations
 gem 'amoeba'
-
-gem 'rails-html-sanitizer', '1.0.3'
-gem 'loofah', '2.1.1'
 
 gem 'bigdecimal', '1.4.2'

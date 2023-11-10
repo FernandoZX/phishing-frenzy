@@ -1,7 +1,7 @@
-PhishingFramework::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
+Rails.application.configure do
+  # Settings specified here will take precedence over those in config/application.rb.
 
-  # Code is not reloaded between requests
+  # Code is not reloaded between requests.
   config.cache_classes = true
   config.action_view.cache_template_loading = false
 
@@ -11,12 +11,15 @@ PhishingFramework::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_files = false
+  # Apache or NGINX already handles this.
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.js_compressor = :uglifier
+  # config.assets.css_compressor = :sass
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = true
+  config.assets.compile = false
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -33,9 +36,12 @@ PhishingFramework::Application.configure do
 
   # See everything in the log (default is :info)
   config.log_level = :info
+  # when problems arise.
+  config.log_level = :debug
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
+  config.log_tags = [ :request_id ]
 
   # Use a different logger for distributed setups
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
@@ -45,6 +51,9 @@ PhishingFramework::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
+  # config.active_job.queue_adapter     = :resque
+  # config.active_job.queue_name_prefix = "phishing_framework_#{Rails.env}"
+  config.action_mailer.perform_caching = false
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
@@ -59,15 +68,28 @@ PhishingFramework::Application.configure do
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
 
-  # Send deprecation notices to registered listeners
+  # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
   # Depcrecation notice
   config.active_record.raise_in_transactional_callbacks = true
+  # Use default logging formatter so that PID and timestamp are not suppressed.
+  config.log_formatter = ::Logger::Formatter.new
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
+  # Use a different logger for distributed setups.
+  # require 'syslog/logger'
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   config.eager_load = true
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  end
+  
+  # Do not dump schema after migrations.
+  config.active_record.dump_schema_after_migration = false
 end

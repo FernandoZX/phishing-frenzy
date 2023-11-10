@@ -11,9 +11,9 @@
 #  function        :string(255)      default("website")
 #
 
-class Attachment < ActiveRecord::Base
+class Attachment < ApplicationRecord
 
-  attr_accessible :file, :function, :zipped, :directory_index
+  attr_accessor :file, :function, :zipped, :directory_index
 
   belongs_to :attachable, :polymorphic => true
 
